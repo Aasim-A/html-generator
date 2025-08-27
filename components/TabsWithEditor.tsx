@@ -1,14 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Tabs, { Tab } from '@/components/Tabs';
 import HTMLGenerator from './HTMLGenerator';
 
+const defaultTabs = [
+  { id: 1, label: 'Tab 1', content: 'This is the content of Tab 1.' },
+  { id: 2, label: 'Tab 2', content: 'This is the content of Tab 2.' },
+];
+
 const TabsWithEditor = () => {
-  const [tabs, setTabs] = useState<Tab[]>([
-    { id: 1, label: 'Tab 1', content: 'This is the content of Tab 1.' },
-    { id: 2, label: 'Tab 2', content: 'This is the content of Tab 2.' },
-  ]);
+  const [tabs, setTabs] = useState<Tab[]>(defaultTabs);
   const [activeTab, setActiveTab] = useState<number>(1);
   const [editingTab, setEditingTab] = useState<number | null>(null);
   const [editValue, setEditValue] = useState('');
@@ -48,6 +50,16 @@ const TabsWithEditor = () => {
       prev.map(tab => (tab.id === activeTab ? { ...tab, content: newContent } : tab)),
     );
   };
+
+  useEffect(() => {
+    if (tabs === defaultTabs) return;
+    localStorage.setItem('tabs', JSON.stringify(tabs));
+  }, [tabs]);
+
+  useEffect(() => {
+    const storedTabs = localStorage.getItem('tabs');
+    if (storedTabs) setTabs(JSON.parse(storedTabs));
+  }, []);
 
   const currentTab = tabs.find(t => t.id === activeTab);
 
