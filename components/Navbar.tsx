@@ -58,27 +58,27 @@ const Navbar: FC = () => {
             <Image src='/menu-icon.png' width={32} height={32} alt='Menu icon' />
           </button>
         </div>
-        {isMenuOpen && (
-          <div className='absolute top-20 right-0 float-right rounded-xl bg-gray-200 text-center text-gray-900 shadow-inner dark:bg-gray-900 dark:text-gray-100'>
-            <div className='mx-auto flex max-w-6xl flex-col space-y-4 py-4'>
-              <Link href='/' className='w-full px-6 hover:text-blue-500'>
-                Home
-              </Link>
-              <Link href='/about' className='w-full px-6 hover:text-blue-500'>
-                About
-              </Link>
-              <Link href='#' className='w-full px-6 hover:text-blue-500'>
-                Pre-lab Questions
-              </Link>
-              <Link href='#' className='w-full px-6 hover:text-blue-500'>
-                Escape Room
-              </Link>
-              <Link href='#' className='w-full px-6 hover:text-blue-500'>
-                Coding Races
-              </Link>
-            </div>
+        <div
+          className={`absolute top-20 right-0 float-right transform rounded-xl bg-gray-200 text-center text-gray-900 shadow-inner transition-all duration-300 ease-out dark:bg-gray-900 dark:text-gray-100 ${isMenuOpen ? 'scale-100 opacity-100' : 'pointer-events-none scale-95 opacity-0'}`}
+        >
+          <div className='mx-auto flex max-w-6xl flex-col space-y-4 py-4'>
+            <Link href='/' className='w-full px-6 hover:text-blue-500'>
+              Home
+            </Link>
+            <Link href='/about' className='w-full px-6 hover:text-blue-500'>
+              About
+            </Link>
+            <Link href='#' className='w-full px-6 hover:text-blue-500'>
+              Pre-lab Questions
+            </Link>
+            <Link href='#' className='w-full px-6 hover:text-blue-500'>
+              Escape Room
+            </Link>
+            <Link href='#' className='w-full px-6 hover:text-blue-500'>
+              Coding Races
+            </Link>
           </div>
-        )}
+        </div>
       </nav>
     </div>
   );

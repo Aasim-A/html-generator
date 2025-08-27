@@ -11,7 +11,7 @@ interface HTMLGeneratorProps {
 
 const HTMLGenerator: FC<HTMLGeneratorProps> = ({ tabs }) => {
   const [output, setOutput] = useState('');
-  const [isDark, setIsDark] = useState(document.documentElement.classList.contains('dark'));
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     const listener = (e: Event) => {
