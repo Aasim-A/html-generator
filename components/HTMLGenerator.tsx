@@ -1,9 +1,9 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Tab } from './Tabs';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { oneDark, oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 interface HTMLGeneratorProps {
   tabs: Tab[];
@@ -11,6 +11,19 @@ interface HTMLGeneratorProps {
 
 const HTMLGenerator: FC<HTMLGeneratorProps> = ({ tabs }) => {
   const [output, setOutput] = useState('');
+  const [isDark, setIsDark] = useState(document.documentElement.classList.contains('dark'));
+
+  useEffect(() => {
+    const listener = (e: Event) => {
+      setIsDark((e as CustomEvent<string>).detail === 'dark');
+    };
+
+    window.addEventListener('themeChange', listener);
+
+    return () => {
+      window.removeEventListener('themeChange', listener);
+    };
+  });
 
   const generateHtml = () => {
     const buttons = tabs
@@ -119,7 +132,7 @@ function openTab(evt, tabName) {
         <div className='space-y-3'>
           <SyntaxHighlighter
             language='html'
-            style={oneDark}
+            style={isDark ? oneDark : oneLight}
             wrapLongLines
             showLineNumbers
             className='h-96 w-full rounded-lg bg-gray-100 p-3 font-mono shadow-md dark:bg-gray-900'

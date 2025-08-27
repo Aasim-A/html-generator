@@ -9,8 +9,13 @@ const Navbar: FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
-    if (isDarkMode) document.documentElement.classList.add('dark');
-    else document.documentElement.classList.remove('dark');
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+      window.dispatchEvent(new CustomEvent<string>('themeChange', { detail: 'dark' }));
+    } else {
+      document.documentElement.classList.remove('dark');
+      window.dispatchEvent(new CustomEvent<string>('themeChange', { detail: 'light' }));
+    }
   }, [isDarkMode]);
 
   return (
