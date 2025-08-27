@@ -59,7 +59,7 @@ const Tabs = ({
         </button>
       </div>
       <span className='mb-2 w-full text-sm text-gray-500 dark:text-gray-400'>
-        Double click title to edit
+        Double click to edit title
       </span>
 
       {/* Tab list */}

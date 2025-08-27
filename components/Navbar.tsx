@@ -23,6 +23,15 @@ const Navbar: FC = () => {
           <Link href='/about' className='hover:text-blue-500'>
             About
           </Link>
+          <Link href='#' className='hover:text-blue-500'>
+            Pre-lab Questions
+          </Link>
+          <Link href='#' className='hover:text-blue-500'>
+            Escape Room
+          </Link>
+          <Link href='#' className='hover:text-blue-500'>
+            Coding Races
+          </Link>
         </div>
 
         <div className='flex space-x-4'>
@@ -52,6 +61,15 @@ const Navbar: FC = () => {
               </Link>
               <Link href='/about' className='w-full px-6 hover:text-blue-500'>
                 About
+              </Link>
+              <Link href='#' className='w-full px-6 hover:text-blue-500'>
+                Pre-lab Questions
+              </Link>
+              <Link href='#' className='w-full px-6 hover:text-blue-500'>
+                Escape Room
+              </Link>
+              <Link href='#' className='w-full px-6 hover:text-blue-500'>
+                Coding Races
               </Link>
             </div>
           </div>

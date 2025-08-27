@@ -4,17 +4,17 @@ import { useState } from 'react';
 import Tabs, { Tab } from '@/components/Tabs';
 
 const TabsWithEditor = () => {
-const [tabs, setTabs] = useState<Tab[]>([
-    { id: 1, label: "Tab 1", content: "This is the content of Tab 1." },
-    { id: 2, label: "Tab 2", content: "This is the content of Tab 2." },
+  const [tabs, setTabs] = useState<Tab[]>([
+    { id: 1, label: 'Tab 1', content: 'This is the content of Tab 1.' },
+    { id: 2, label: 'Tab 2', content: 'This is the content of Tab 2.' },
   ]);
   const [activeTab, setActiveTab] = useState<number>(1);
   const [editingTab, setEditingTab] = useState<number | null>(null);
-  const [editValue, setEditValue] = useState("");
+  const [editValue, setEditValue] = useState('');
 
   const addTab = () => {
-    const newId = tabs.length ? Math.max(...tabs.map((t) => t.id)) + 1 : 1;
-    const newTab = { id: newId, label: `New Tab`, content: "" };
+    const newId = tabs.length ? Math.max(...tabs.map(t => t.id)) + 1 : 1;
+    const newTab = { id: newId, label: `New Tab`, content: '' };
     setTabs([...tabs, newTab]);
     setActiveTab(newId);
 
@@ -24,7 +24,7 @@ const [tabs, setTabs] = useState<Tab[]>([
   };
 
   const deleteTab = (id: number) => {
-    const filtered = tabs.filter((tab) => tab.id !== id);
+    const filtered = tabs.filter(tab => tab.id !== id);
     setTabs(filtered);
     if (activeTab === id && filtered.length > 0) {
       setActiveTab(filtered[0].id);
@@ -32,30 +32,26 @@ const [tabs, setTabs] = useState<Tab[]>([
   };
 
   const renameTab = (id: number, newLabel: string) => {
-    setTabs((prev) =>
-      prev.map((tab) => (tab.id === id ? { ...tab, label: newLabel } : tab))
-    );
+    setTabs(prev => prev.map(tab => (tab.id === id ? { ...tab, label: newLabel } : tab)));
   };
 
   const saveEdit = (id: number) => {
-    if (editValue.trim() !== "") {
+    if (editValue.trim() !== '') {
       renameTab(id, editValue.trim());
     }
     setEditingTab(null);
   };
 
   const updateContent = (newContent: string) => {
-    setTabs((prev) =>
-      prev.map((tab) =>
-        tab.id === activeTab ? { ...tab, content: newContent } : tab
-      )
+    setTabs(prev =>
+      prev.map(tab => (tab.id === activeTab ? { ...tab, content: newContent } : tab)),
     );
   };
 
-  const currentTab = tabs.find((t) => t.id === activeTab);
+  const currentTab = tabs.find(t => t.id === activeTab);
 
   return (
-    <div className="flex gap-6">
+    <div className='flex gap-6'>
       {/* Left: Tabs */}
       <Tabs
         tabs={tabs}
@@ -71,17 +67,15 @@ const [tabs, setTabs] = useState<Tab[]>([
       />
 
       {/* Right: Textarea Editor */}
-      <div className="flex-1">
+      <div className='flex-1'>
         {currentTab ? (
           <textarea
-            className="w-full h-96 p-3 border rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 resize-none"
+            className='h-96 w-full resize-none rounded-lg bg-gray-100 p-3 text-gray-900 shadow-md dark:bg-gray-900 dark:text-gray-100'
             value={currentTab.content}
-            onChange={(e) => updateContent(e.target.value)}
+            onChange={e => updateContent(e.target.value)}
           />
         ) : (
-          <div className="text-gray-500 dark:text-gray-400">
-            No tab selected.
-          </div>
+          <div className='text-gray-500 dark:text-gray-400'>No tab selected.</div>
         )}
       </div>
     </div>
