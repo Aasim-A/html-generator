@@ -19,7 +19,6 @@ interface TabsProps {
   saveEdit: (id: number) => void;
 }
 
-// --- Vertical Tabs with Editable Labels ---
 const Tabs = ({
   tabs,
   activeTab,
@@ -39,7 +38,6 @@ const Tabs = ({
 
   return (
     <div className='flex w-64 flex-col rounded-2xl bg-gray-100 p-4 text-gray-900 shadow-md dark:bg-gray-900 dark:text-gray-100'>
-      {/* Header with title + add button */}
       <div className='flex items-center justify-between'>
         <h2 className='text-lg font-semibold'>Tabs</h2>
         <button
@@ -47,7 +45,6 @@ const Tabs = ({
           disabled={tabs.length > 14}
           className='rounded-md p-1 hover:bg-gray-200 disabled:cursor-not-allowed disabled:text-gray-400 dark:hover:bg-gray-800'
         >
-          {/* Plus Icon */}
           <svg
             xmlns='http://www.w3.org/2000/svg'
             className='h-5 w-5'
@@ -63,7 +60,6 @@ const Tabs = ({
         Double click to edit title
       </span>
 
-      {/* Tab list */}
       <div className='flex flex-col space-y-2'>
         {tabs.map(tab => (
           <div
@@ -75,7 +71,6 @@ const Tabs = ({
             }`}
             onClick={() => setActiveTab(tab.id)}
           >
-            {/* Editable label */}
             {editingTab === tab.id ? (
               <input
                 className='mr-2 flex-1 rounded bg-white px-1 text-gray-900 dark:bg-gray-700 dark:text-gray-100'
@@ -100,7 +95,6 @@ const Tabs = ({
               </span>
             )}
 
-            {/* Delete button */}
             <button
               onClick={e => {
                 e.stopPropagation();
@@ -113,7 +107,6 @@ const Tabs = ({
                   : 'hover:bg-gray-300 dark:hover:bg-gray-700'
               }`}
             >
-              {/* X Icon */}
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 className='h-4 w-4'

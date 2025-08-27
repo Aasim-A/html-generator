@@ -9,6 +9,8 @@ const defaultTabs = [
   { id: 2, label: 'Tab 2', content: 'This is the content of Tab 2.' },
 ];
 
+let timeoutId = 0;
+
 const TabsWithEditor = () => {
   const [tabs, setTabs] = useState<Tab[]>(defaultTabs);
   const [activeTab, setActiveTab] = useState<number>(1);
@@ -53,7 +55,8 @@ const TabsWithEditor = () => {
 
   useEffect(() => {
     if (tabs === defaultTabs) return;
-    localStorage.setItem('tabs', JSON.stringify(tabs));
+    window.clearTimeout(timeoutId);
+    timeoutId = window.setTimeout(() => localStorage.setItem('tabs', JSON.stringify(tabs)), 500);
   }, [tabs]);
 
   useEffect(() => {
@@ -66,7 +69,6 @@ const TabsWithEditor = () => {
   return (
     <div className='flex flex-col gap-6'>
       <div className='flex gap-6'>
-        {/* Left: Tabs */}
         <Tabs
           tabs={tabs}
           activeTab={activeTab}
@@ -80,7 +82,6 @@ const TabsWithEditor = () => {
           saveEdit={saveEdit}
         />
 
-        {/* Right: Textarea Editor */}
         <div className='flex-1'>
           {currentTab ? (
             <textarea
