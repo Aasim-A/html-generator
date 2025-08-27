@@ -34,7 +34,7 @@ export default function RootLayout({
         <Header />
         <hr />
         <Navbar />
-        <div className='flex-1 bg-white pt-8 text-gray-900 dark:bg-gray-700 dark:text-gray-100'>
+        <div className='flex-1 bg-white py-8 text-gray-900 dark:bg-gray-700 dark:text-gray-100'>
           {children}
         </div>
         <Footer />

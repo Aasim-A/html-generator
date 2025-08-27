@@ -44,7 +44,8 @@ const Tabs = ({
         <h2 className='text-lg font-semibold'>Tabs</h2>
         <button
           onClick={addTab}
-          className='rounded-md p-1 hover:bg-gray-200 dark:hover:bg-gray-800'
+          disabled={tabs.length > 14}
+          className='rounded-md p-1 hover:bg-gray-200 disabled:cursor-not-allowed disabled:text-gray-400 dark:hover:bg-gray-800'
         >
           {/* Plus Icon */}
           <svg
