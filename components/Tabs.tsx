@@ -12,13 +12,35 @@ interface TabsProps {
   setActiveTab: (id: number) => void;
   addTab: () => void;
   deleteTab: (id: number) => void;
+  editingTab: number | null;
+  setEditingTab: (id: number | null) => void;
+  editValue: string;
+  setEditValue: (val: string) => void;
+  saveEdit: (id: number) => void;
 }
 
-const Tabs = ({ tabs, activeTab, setActiveTab, addTab, deleteTab }: TabsProps) => {
+// --- Vertical Tabs with Editable Labels ---
+const Tabs = ({
+  tabs,
+  activeTab,
+  setActiveTab,
+  addTab,
+  deleteTab,
+  editingTab,
+  setEditingTab,
+  editValue,
+  setEditValue,
+  saveEdit,
+}: TabsProps) => {
+  const startEditing = (tabId: number, currentLabel: string) => {
+    setEditingTab(tabId);
+    setEditValue(currentLabel);
+  };
+
   return (
     <div className='flex w-64 flex-col rounded-2xl bg-gray-100 p-4 text-gray-900 shadow-md dark:bg-gray-900 dark:text-gray-100'>
       {/* Header with title + add button */}
-      <div className='mb-4 flex items-center justify-between'>
+      <div className='flex items-center justify-between'>
         <h2 className='text-lg font-semibold'>Tabs</h2>
         <button
           onClick={addTab}
@@ -36,6 +58,9 @@ const Tabs = ({ tabs, activeTab, setActiveTab, addTab, deleteTab }: TabsProps) =
           </svg>
         </button>
       </div>
+      <span className='mb-2 w-full text-sm text-gray-500 dark:text-gray-400'>
+        Double click title to edit
+      </span>
 
       {/* Tab list */}
       <div className='flex flex-col space-y-2'>
@@ -49,14 +74,43 @@ const Tabs = ({ tabs, activeTab, setActiveTab, addTab, deleteTab }: TabsProps) =
             }`}
             onClick={() => setActiveTab(tab.id)}
           >
-            <span>{tab.label}</span>
+            {/* Editable label */}
+            {editingTab === tab.id ? (
+              <input
+                className='mr-2 flex-1 rounded bg-white px-1 text-gray-900 dark:bg-gray-700 dark:text-gray-100'
+                value={editValue}
+                onChange={e => setEditValue(e.target.value)}
+                onBlur={() => saveEdit(tab.id)}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') saveEdit(tab.id);
+                  if (e.key === 'Escape') setEditingTab(null);
+                }}
+                autoFocus
+              />
+            ) : (
+              <span
+                className='mr-2 flex-1'
+                onDoubleClick={e => {
+                  e.stopPropagation();
+                  startEditing(tab.id, tab.label);
+                }}
+              >
+                {tab.label}
+              </span>
+            )}
+
+            {/* Delete button */}
             <button
               onClick={e => {
                 e.stopPropagation();
                 deleteTab(tab.id);
               }}
               disabled={tabs.length < 2}
-              className='rounded p-1 hover:bg-gray-300 disabled:cursor-not-allowed dark:hover:bg-gray-700'
+              className={`rounded p-1 disabled:cursor-not-allowed disabled:text-gray-400 ${
+                activeTab === tab.id
+                  ? 'hover:bg-blue-600'
+                  : 'hover:bg-gray-300 dark:hover:bg-gray-700'
+              }`}
             >
               {/* X Icon */}
               <svg
