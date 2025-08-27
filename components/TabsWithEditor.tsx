@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Tabs, { Tab } from '@/components/Tabs';
+import HTMLGenerator from './HTMLGenerator';
 
 const TabsWithEditor = () => {
   const [tabs, setTabs] = useState<Tab[]>([
@@ -51,33 +52,37 @@ const TabsWithEditor = () => {
   const currentTab = tabs.find(t => t.id === activeTab);
 
   return (
-    <div className='flex gap-6'>
-      {/* Left: Tabs */}
-      <Tabs
-        tabs={tabs}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        addTab={addTab}
-        deleteTab={deleteTab}
-        editingTab={editingTab}
-        setEditingTab={setEditingTab}
-        editValue={editValue}
-        setEditValue={setEditValue}
-        saveEdit={saveEdit}
-      />
+    <div className='flex flex-col gap-6'>
+      <div className='flex gap-6'>
+        {/* Left: Tabs */}
+        <Tabs
+          tabs={tabs}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          addTab={addTab}
+          deleteTab={deleteTab}
+          editingTab={editingTab}
+          setEditingTab={setEditingTab}
+          editValue={editValue}
+          setEditValue={setEditValue}
+          saveEdit={saveEdit}
+        />
 
-      {/* Right: Textarea Editor */}
-      <div className='flex-1'>
-        {currentTab ? (
-          <textarea
-            className='h-96 w-full resize-none rounded-lg bg-gray-100 p-3 text-gray-900 shadow-md dark:bg-gray-900 dark:text-gray-100'
-            value={currentTab.content}
-            onChange={e => updateContent(e.target.value)}
-          />
-        ) : (
-          <div className='text-gray-500 dark:text-gray-400'>No tab selected.</div>
-        )}
+        {/* Right: Textarea Editor */}
+        <div className='flex-1'>
+          {currentTab ? (
+            <textarea
+              className='h-96 w-full resize-none rounded-lg bg-gray-100 p-3 text-gray-900 shadow-md dark:bg-gray-900 dark:text-gray-100'
+              value={currentTab.content}
+              onChange={e => updateContent(e.target.value)}
+            />
+          ) : (
+            <div className='text-gray-500 dark:text-gray-400'>No tab selected.</div>
+          )}
+        </div>
       </div>
+
+      <HTMLGenerator tabs={tabs} />
     </div>
   );
 };
