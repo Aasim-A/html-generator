@@ -40,7 +40,7 @@ const Navbar: FC = () => {
           <Link href='#' className='hover:text-blue-500'>
             Pre-lab Questions
           </Link>
-          <Link href='#' className='hover:text-blue-500'>
+          <Link href='/escape-room' className='hover:text-blue-500'>
             Escape Room
           </Link>
           <Link href='#' className='hover:text-blue-500'>
