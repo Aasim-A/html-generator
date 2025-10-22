@@ -7,10 +7,7 @@ services:
       - api
     environment:
       - NODE_ENV=development
-      - NEXT_PUBLIC_API_URL=http://localhost:4080
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules # Optional: prevents overwriting node_modules in dev
+      - NEXT_PUBLIC_API_URL=http://ec2-16-176-203-250.ap-southeast-2.compute.amazonaws.com:4080
     command: npm run dev
 
   api:
@@ -19,6 +16,3 @@ services:
       - "4080:3000"
     environment:
       - NODE_ENV=development
-    volumes:
-      - ./api:/app
-      - /app/node_modules/.prisma # Optional: same as frontend
