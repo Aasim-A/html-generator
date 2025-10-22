@@ -2,8 +2,8 @@
 
 import { FC, useEffect, useState } from 'react';
 import { Tab } from './Tabs';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneDark, oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { atomOneDark, atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 interface HTMLGeneratorProps {
   tabs: Tab[];
@@ -160,7 +160,7 @@ function openTab(evt, tabName) {
         <div className='space-y-3'>
           <SyntaxHighlighter
             language='html'
-            style={isDark ? oneDark : oneLight}
+            style={isDark ? atomOneDark : atomOneLight}
             wrapLongLines
             showLineNumbers
             className='h-96 w-full rounded-lg bg-gray-100 p-3 font-mono shadow-md dark:bg-gray-900'
