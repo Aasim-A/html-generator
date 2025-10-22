@@ -12,18 +12,21 @@ interface HTMLGeneratorProps {
 const HTMLGenerator: FC<HTMLGeneratorProps> = ({ tabs }) => {
   const [output, setOutput] = useState('');
   const [isDark, setIsDark] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const listener = (e: Event) => {
       setIsDark((e as CustomEvent<string>).detail === 'dark');
     };
 
+    setIsDark(localStorage.getItem('theme') === 'dark');
+
     window.addEventListener('themeChange', listener);
 
     return () => {
       window.removeEventListener('themeChange', listener);
     };
-  });
+  }, []);
 
   const generateHtml = () => {
     const buttons = tabs
@@ -105,18 +108,43 @@ function openTab(evt, tabName) {
   };
 
   const copyToClipboard = async () => {
-    if (output) {
-      await navigator.clipboard.writeText(output);
-      alert('HTML copied to clipboard!');
-    }
+    if (!output) return;
+
+    await navigator.clipboard.writeText(output);
+    alert('HTML copied to clipboard!');
   };
 
   const downloadHtml = () => {
+    if (!output) return;
+
     const blob = new Blob([output], { type: 'text/html' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
     link.download = 'tabs.html';
     link.click();
+  };
+
+  const saveToDB = () => {
+    if (!output) return;
+
+    const title = prompt('Please choose a title for this page');
+    if (!title) return;
+
+    setIsLoading(true);
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pages`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title, html: output }),
+    })
+      .then(r => {
+        if (!r.ok) return Promise.reject();
+
+        alert('Page saved successfully!');
+      })
+      .catch(() => {
+        alert('Error while saving page');
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -151,6 +179,14 @@ function openTab(evt, tabName) {
               className='rounded-lg bg-purple-600 px-3 py-2 text-white hover:bg-purple-700'
             >
               Download HTML
+            </button>
+
+            <button
+              onClick={saveToDB}
+              disabled={isLoading}
+              className='rounded-lg bg-blue-600 px-3 py-2 text-white hover:bg-blue-700 disabled:bg-gray-600'
+            >
+              Save to DB
             </button>
           </div>
 

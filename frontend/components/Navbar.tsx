@@ -9,12 +9,18 @@ const Navbar: FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
+    setIsDarkMode(localStorage.getItem('theme') === 'dark');
+  }, []);
+
+  useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
       window.dispatchEvent(new CustomEvent<string>('themeChange', { detail: 'dark' }));
+      window.localStorage.setItem('theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
       window.dispatchEvent(new CustomEvent<string>('themeChange', { detail: 'light' }));
+      window.localStorage.setItem('theme', 'light');
     }
   }, [isDarkMode]);
 
@@ -27,6 +33,9 @@ const Navbar: FC = () => {
           </Link>
           <Link href='/about' className='hover:text-blue-500'>
             About
+          </Link>
+          <Link href='/pages' className='hover:text-blue-500'>
+            Saved Pages
           </Link>
           <Link href='#' className='hover:text-blue-500'>
             Pre-lab Questions
