@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Script from 'next/script';
 import { python } from '@codemirror/lang-python';
@@ -8,20 +8,33 @@ import { dracula } from '@uiw/codemirror-theme-dracula';
 
 const CodeMirror = dynamic(() => import('@uiw/react-codemirror'), { ssr: false });
 
-export default function Terminal({ correct, setCorrect, correctOutput, level, providedCode }) {
+export default function Terminal({
+  correct,
+  setCorrectAction,
+  correctOutput,
+  level,
+  providedCode,
+}: {
+  correct: string;
+  setCorrectAction: Dispatch<SetStateAction<string>>;
+  correctOutput: string;
+  level: number;
+  providedCode: string[];
+}) {
   const [code, setCode] = useState('');
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(true);
   const [running, setRunning] = useState(false);
-  const [pyodide, setPyodide] = useState(null);
+  const [pyodide, setPyodide] = useState<any>(null);
 
   const initPyodide = async () => {
     try {
+      // @ts-expect-error External import
       const p = await window.loadPyodide();
       setPyodide(p);
       setLoading(false);
       setOutput('✓ Python environment ready! Click "Run Code" to execute.');
-    } catch (e) {
+    } catch (e: any) {
       setOutput('Error loading Pyodide: ' + e.message);
       setLoading(false);
     }
@@ -39,10 +52,10 @@ sys.stdout = StringIO()
 `);
       await pyodide.runPythonAsync(code);
       const stdout = await pyodide.runPythonAsync('sys.stdout.getvalue()');
-      if (stdout.slice(0, stdout.length - 1) === correctOutput) setCorrect('correct');
-      else setCorrect('incorrect');
+      if (stdout.slice(0, stdout.length - 1) === correctOutput) setCorrectAction('correct');
+      else setCorrectAction('incorrect');
       setOutput(stdout || 'Code executed successfully (no output)');
-    } catch (e) {
+    } catch (e: any) {
       setOutput('Error: ' + e.message);
     } finally {
       setRunning(false);
@@ -51,8 +64,8 @@ sys.stdout = StringIO()
 
   const clearOutput = useCallback(() => {
     setOutput('');
-    setCorrect('');
-  }, [setCorrect]);
+    setCorrectAction('');
+  }, [setCorrectAction]);
 
   useEffect(() => {
     setCode(providedCode[level - 1]);

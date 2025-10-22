@@ -72,7 +72,7 @@ export default function Room3() {
               <br />
               <code className='rounded bg-slate-700 px-1 whitespace-pre'>{`for i in range(len(nums)):
     for j in range(i+1, len(nums)):
-        if nums[i] * nums[j] == 42:
+        if nums[i] * nums[j] == target:
             return (i, j)
 `}</code>
               This will give you the indices that unlock the vault.

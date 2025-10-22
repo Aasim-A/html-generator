@@ -34,11 +34,11 @@ for a in range(1, 10):
   `def find_pair(nums, target=42):
     # TODO: Find two numbers that multiply to target (42)
     # and return their indices as a tuple (i, j)
-    # Example input: [3, 6, 7, 14, 21, 2]
+    # Example input: [3, 6, 9, 14, 21, 2]
     pass
 
 # Test input
-nums = [3, 6, 7, 14, 21, 2]
+nums = [3, 6, 9, 14, 21, 2]
 print(find_pair(nums))
 `,
 ];
@@ -137,7 +137,7 @@ const EscapePage = () => {
           {level > 0 && level < 4 && (
             <Terminal
               correct={correct}
-              setCorrect={setCorrect}
+              setCorrectAction={setCorrect}
               correctOutput={correctOutputs[level - 1]}
               level={level}
               providedCode={providedCode}
