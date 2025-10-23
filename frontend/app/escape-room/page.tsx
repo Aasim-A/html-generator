@@ -99,7 +99,7 @@ const EscapePage = () => {
       <div className='mx-auto max-w-4xl'>
         <div className='mb-8 flex items-center justify-between gap-4'>
           <h1 className='text-4xl font-bold text-gray-900 dark:text-gray-100'>Escape Room</h1>
-          {level > 0 && level < 4 && <CountdownTimer initialSeconds={4} setLevel={setLevel} />}
+          {level > 0 && level < 4 && <CountdownTimer initialSeconds={45 * 60} setLevel={setLevel} />}
         </div>
 
         <div
