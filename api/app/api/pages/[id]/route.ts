@@ -7,7 +7,6 @@ interface Ctx {
   }>;
 }
 
-// GET one page
 export async function GET(_: Request, { params }: Ctx) {
   const { id } = await params;
   const page = await prisma.page.findUnique({
@@ -19,7 +18,6 @@ export async function GET(_: Request, { params }: Ctx) {
   return NextResponse.json(page);
 }
 
-// PATCH update page
 export async function PATCH(req: Request, { params }: Ctx) {
   const { id } = await params;
   const { title, html } = await req.json();
@@ -31,7 +29,6 @@ export async function PATCH(req: Request, { params }: Ctx) {
   return NextResponse.json(updated);
 }
 
-// DELETE page
 export async function DELETE(_: Request, { params }: Ctx) {
   const { id } = await params;
   await prisma.page.delete({

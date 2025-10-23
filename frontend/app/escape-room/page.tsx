@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect, SetStateAction, Dispatch } from 'react';
+import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import Terminal from '@/components/Terminal';
 import Room1 from '@/components/Room1';
@@ -8,6 +8,7 @@ import Room2 from '@/components/Room2';
 import Room3 from '@/components/Room3';
 import Congrats from '@/components/Congrats';
 import Failure from '@/components/Failure';
+import Timer from '@/components/Timer';
 
 const providedCode = [
   `def extract_prime_letters(s):
@@ -51,38 +52,6 @@ const correctOutputs = [
   '(0, 3)',
 ];
 
-// ───────── TIMER ─────────
-const CountdownTimer = ({
-  initialSeconds,
-  setLevel,
-}: {
-  initialSeconds: number;
-  setLevel: Dispatch<SetStateAction<number>>;
-}) => {
-  const [remaining, setRemaining] = useState(initialSeconds);
-
-  useEffect(() => {
-    if (remaining <= 0) setLevel(5);
-    const id = setInterval(() => {
-      setRemaining(prev => (prev > 0 ? prev - 1 : 0));
-    }, 1000);
-    return () => clearInterval(id);
-  }, [remaining, setLevel]);
-
-  const minutes = Math.floor(remaining / 60);
-  const seconds = remaining % 60;
-
-  return (
-    <span
-      aria-live='polite'
-      className='inline-flex items-center rounded-md border border-gray-300 px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm dark:border-gray-700 dark:text-gray-100'
-    >
-      ⏳ {minutes}:{seconds.toString().padStart(2, '0')}
-    </span>
-  );
-};
-
-// ───────── PAGE ─────────
 const EscapePage = () => {
   const [level, setLevel] = useState(0);
   const [correct, setCorrect] = useState<string>('');
@@ -99,7 +68,7 @@ const EscapePage = () => {
       <div className='mx-auto max-w-4xl'>
         <div className='mb-8 flex items-center justify-between gap-4'>
           <h1 className='text-4xl font-bold text-gray-900 dark:text-gray-100'>Escape Room</h1>
-          {level > 0 && level < 4 && <CountdownTimer initialSeconds={45 * 60} setLevel={setLevel} />}
+          {level > 0 && level < 4 && <Timer initialSeconds={45 * 60} setLevel={setLevel} />}
         </div>
 
         <div

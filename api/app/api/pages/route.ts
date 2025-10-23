@@ -2,13 +2,11 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAllSavedPages } from "@/shares/get-pages";
 
-// GET all pages
 export async function GET() {
   const pages = await getAllSavedPages();
   return NextResponse.json(pages);
 }
 
-// POST create new page
 export async function POST(req: Request) {
   const { title, html } = await req.json();
   if (!title || !html)
