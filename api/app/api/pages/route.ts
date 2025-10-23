@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getAllSavedPages } from "@/shares/get-pages";
 
 // GET all pages
 export async function GET() {
-  const pages = await prisma.page.findMany({
-    orderBy: { createdAt: "desc" },
-  });
+  const pages = await getAllSavedPages();
   return NextResponse.json(pages);
 }
 

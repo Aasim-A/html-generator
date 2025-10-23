@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@vercel/otel": "latest",
+    "@opentelemetry/api": "^1.4.1",
     "@prisma/client": "^6.17.1",
     "next": "16.0.0",
     "react": "19.2.0",
