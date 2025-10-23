@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📘 Pages API Documentation
 
-## Getting Started
+This API allows you to create, read, update, and delete stored HTML pages.
 
-First, run the development server:
+## GET /api/pages
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Returns a list of all pages.
+
+```javascript
+fetch('/api/pages').then(r => r.json())
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## POST /api/pages
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Create a new page with `title` and `html`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```javascript
+fetch('/api/pages', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ title: 'Example', html: '<p>Hello world!</p>' })
+})
+```
 
-## Learn More
+## GET /api/pages/[id]
 
-To learn more about Next.js, take a look at the following resources:
+Retrieve a single page by its ID.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```javascript
+fetch('/api/pages/1').then(r => r.json())
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## PUT /api/pages/[id]
 
-## Deploy on Vercel
+Update an existing page.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```javascript
+fetch('/api/pages/1', {
+  method: 'PUT',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ title: 'Updated', html: '<p>Updated HTML</p>' })
+})
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## DELETE /api/pages/[id]
+
+Delete a page by ID.
+
+```javascript
+fetch('/api/pages/1', { method: 'DELETE' })
+```
