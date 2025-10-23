@@ -92,20 +92,21 @@ const EscapePage = () => {
     setCorrect('');
   }, []);
 
+  const bgUrl = level < 1 || level > 3 ? '/escape-room-landscape.png' : '/escape-room-portrait.png';
+
   return (
     <div className='container mx-auto px-4 py-8'>
       <div className='mx-auto max-w-4xl'>
         <div className='mb-8 flex items-center justify-between gap-4'>
           <h1 className='text-4xl font-bold text-gray-900 dark:text-gray-100'>Escape Room</h1>
-          {level > 0 && level < 4 && (
-            <CountdownTimer initialSeconds={45 * 60} setLevel={setLevel} />
-          )}
+          {level > 0 && level < 4 && <CountdownTimer initialSeconds={4} setLevel={setLevel} />}
         </div>
 
         <div
           style={{
-            backgroundImage: 'url("/escape-room.jpg")',
+            backgroundImage: `url(${bgUrl})`,
             backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
             backgroundSize: 'cover',
           }}
           className='rounded-lg bg-white p-8 shadow-lg dark:bg-gray-900'
