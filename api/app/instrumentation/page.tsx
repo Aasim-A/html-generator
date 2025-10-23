@@ -27,11 +27,15 @@ const ApiDocumentation: React.FC = () => {
         h3 { font-size: 1.2em; font-weight: bold; margin-top: 1em; }
       `}</style>
 
-      <h1>Week 9: Monitoring Instrumentation Dashboard Links</h1>
+      <h1>Monitoring Instrumentation Dashboard Links</h1>
 
       <h2>Go to:</h2>
       <p>
-        <a href={`${baseUrl}:3000/`} target="_blank" rel="noopener noreferrer">
+        <a
+          href={`${baseUrl}:3000/instrumentation`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           {baseUrl}:3000/
         </a>
       </p>
@@ -40,18 +44,18 @@ const ApiDocumentation: React.FC = () => {
       <h2>Check the API:</h2>
       <p>
         <a
-          href={`${baseUrl}:3000/api/hello`}
+          href={`${baseUrl}:3000/api/pages`}
           target="_blank"
           rel="noopener noreferrer"
         >
-          {baseUrl}:3000/api/hello
+          {baseUrl}:3000/api/pages
         </a>
       </p>
       <br />
 
       <h3>Try with curl:</h3>
       <pre>
-        <code>curl {baseUrl}:3000/api/hello</code>
+        <code>curl {baseUrl}:3000/api/pages</code>
       </pre>
       <br />
 

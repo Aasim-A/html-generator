@@ -6,13 +6,15 @@ export async function getAllSavedPages() {
   return await trace
     .getTracer("html-generator")
     .startActiveSpan("getAllSavedPages", async (span) => {
+      let pages = [];
       try {
-        const pages = await prisma.page.findMany({
+        pages = await prisma.page.findMany({
           orderBy: { createdAt: "desc" },
         });
-        return pages;
       } finally {
         span.end();
       }
+
+      return pages;
     });
 }
