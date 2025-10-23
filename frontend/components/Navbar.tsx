@@ -50,6 +50,7 @@ const Navbar: FC = () => {
 
         <div className='flex space-x-4'>
           <button
+            data-testid='themeToggleButton'
             className='cursor-pointer rounded-md p-2 hover:bg-gray-200 dark:hover:bg-gray-900'
             onClick={() => setIsDarkMode(prev => !prev)}
           >

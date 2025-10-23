@@ -77,7 +77,7 @@ sys.stdout = StringIO()
   }, []);
 
   return (
-    <div className='mx-auto max-w-6xl'>
+    <div data-testid='terminal' className='mx-auto max-w-6xl'>
       <Script
         src='https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js'
         strategy='afterInteractive'

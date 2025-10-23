@@ -60,7 +60,7 @@ const Tabs = ({
         Double click to edit title
       </span>
 
-      <div className='flex flex-col space-y-2'>
+      <div data-testid='tabList' className='flex flex-col space-y-2'>
         {tabs.map(tab => (
           <div
             key={tab.id}
